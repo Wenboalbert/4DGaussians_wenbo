@@ -42,22 +42,9 @@ class Scene:
         self.train_cameras = {}
         self.test_cameras = {}
         self.video_cameras = {}
-
-        #下面为了识别vggtview
-
-        if os.path.exists(os.path.join(args.source_path, "vggtview_meta.json")):
-            scene_info = sceneLoadTypeCallbacks["VGGTView"](args.source_path, args.eval, args.llffhold)
-            dataset_type="vggtview"
-        elif os.path.exists(os.path.join(args.source_path, "sparse")):
+        if os.path.exists(os.path.join(args.source_path, "sparse")):
             scene_info = sceneLoadTypeCallbacks["Colmap"](args.source_path, args.images, args.eval, args.llffhold)
             dataset_type="colmap"
-        #上面为了识别vggtview加上的，下面为了识别vggtview沉默掉的
-        
-
-        
-        #if os.path.exists(os.path.join(args.source_path, "sparse")):
-            #scene_info = sceneLoadTypeCallbacks["Colmap"](args.source_path, args.images, args.eval, args.llffhold)
-            #dataset_type="colmap"
         elif os.path.exists(os.path.join(args.source_path, "transforms_train.json")):
             print("Found transforms_train.json file, assuming Blender data set!")
             scene_info = sceneLoadTypeCallbacks["Blender"](args.source_path, args.white_background, args.eval, args.extension)
